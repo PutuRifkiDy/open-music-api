@@ -29,7 +29,7 @@ class AuthenticationsHandler {
         refreshToken
       }
     });
-    response.code(response.statusCode);
+    response.code(201);
     return response;
   }
 
@@ -49,7 +49,7 @@ class AuthenticationsHandler {
       }
     });
 
-    response.code(response.statusCode);
+    response.code(200);
     return response;
   }
 
@@ -65,7 +65,7 @@ class AuthenticationsHandler {
       message: 'Refresh token berhasil dihapus'
     });
 
-    response.code(response.statusCode);
+    response.code(200);
     return response;
   }
 }

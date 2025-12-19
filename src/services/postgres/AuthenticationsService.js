@@ -33,11 +33,7 @@ class AuthenticationsService {
       values: [token],
     };
 
-    const result = await this._pool.query(query);
-
-    if (!result.rows.length) {
-      throw new InvariantError('Gagal menghapus refresh token. Token tidak ditemukan di database');
-    }
+    await this._pool.query(query);
   }
 }
 
