@@ -14,7 +14,7 @@ class PlaylistsService {
     const createdAt = new Date().toISOString();
     const updatedAt = createdAt;
     const query = {
-      text: 'INSERT INTO playlists (id, name, owner, "createdAt", "updatedAt") VALUES($1, $2, $3, $4, $5) RETURNING id',
+      text: 'INSERT INTO playlists VALUES($1, $2, $3, $4, $5) RETURNING id',
       values: [id, name, owner, createdAt, updatedAt],
     };
 
@@ -30,7 +30,7 @@ class PlaylistsService {
   async getPlaylistsByOwner(owner) {
     const query = {
       text: `
-        SELECT playlists.id, playlists.name, playlists."createdAt", playlists."updatedAt", users.username
+        SELECT playlists.id, playlists.name, users.username
         FROM playlists
         LEFT JOIN users ON playlists.owner = users.id
         WHERE playlists.owner = $1
