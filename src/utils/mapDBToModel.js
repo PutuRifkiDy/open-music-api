@@ -21,10 +21,14 @@ const mapDBToAlbumModel = ({
 const mapDBToPlaylistModel = ({
   id,
   name,
-  owner: username
+  createdAt,
+  updatedAt,
+  username
 }) => ({
   id,
   name,
+  createdAt,
+  updatedAt,
   username
 });
 

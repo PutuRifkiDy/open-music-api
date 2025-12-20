@@ -30,7 +30,7 @@ class PlaylistsService {
   async getPlaylistsByOwner(owner) {
     const query = {
       text: `
-        SELECT playlists.id, playlists.name, users.username
+        SELECT playlists.id, playlists.name, playlists."createdAt", playlists."updatedAt", users.username
         FROM playlists
         LEFT JOIN users ON playlists.owner = users.id
         WHERE playlists.owner = $1
