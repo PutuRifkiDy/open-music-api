@@ -12,6 +12,14 @@ exports.up = (pgm) => {
       type: 'VARCHAR(50)',
       notNull: true,
     },
+    createdAt: {
+      type: 'TEXT',
+      notNull: true,
+    },
+    updatedAt: {
+      type: 'TEXT',
+      notNull: true,
+    },
   });
 
   pgm.addConstraint('playlists', 'fk_playlists.owner_users.id', 'FOREIGN KEY(owner) REFERENCES users(id) ON DELETE CASCADE');
