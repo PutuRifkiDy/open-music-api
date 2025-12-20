@@ -8,5 +8,8 @@ export default [
   {
     files: ['**/*.js'],
     languageOptions: { sourceType: 'commonjs', globals: globals.node },
+    rules: {
+      'camelcase': 'off',
+    }
   },
 ];

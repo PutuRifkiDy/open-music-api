@@ -10,7 +10,7 @@ class PlaylistsService {
   }
 
   async addPlaylist({ name, owner }) {
-    const id = nanoid(16);
+    const id = `playlist-${nanoid(16)}`;
     const createdAt = new Date().toISOString();
     const updatedAt = createdAt;
     const query = {

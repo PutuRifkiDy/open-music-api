@@ -12,11 +12,11 @@ exports.up = (pgm) => {
       type: 'VARCHAR(50)',
       notNull: true,
     },
-    createdAt: {
+    created_at: {
       type: 'TEXT',
       notNull: true,
     },
-    updatedAt: {
+    updated_at: {
       type: 'TEXT',
       notNull: true,
     },
@@ -26,7 +26,6 @@ exports.up = (pgm) => {
 };
 
 exports.down = (pgm) => {
-  pgm.dropTable('playlists');
-
   pgm.dropConstraint('playlists', 'fk_playlists.owner_users.id');
+  pgm.dropTable('playlists');
 };
