@@ -24,6 +24,10 @@ const playlist = require('./api/playlists');
 const PlaylistsService = require('./services/postgres/PlaylistsService');
 const PlaylistValidator = require('./validator/playlists');
 
+const playlistSongs = require('./api/playlist-songs');
+const PlaylistSongsService = require('./services/postgres/PlaylistSongsService');
+const PlaylistSongsValidator = require('./validator/playlist-songs');
+
 const ClientError = require('./exceptions/ClientError');
 
 const init = async () => {
@@ -32,6 +36,7 @@ const init = async () => {
   const usersService = new UsersService();
   const authenticationService = new AuthenticationsService();
   const playlistsService = new PlaylistsService();
+  const playlistSongsService = new PlaylistSongsService();
 
   const server = Hapi.server({
     port: process.env.PORT,
@@ -99,8 +104,16 @@ const init = async () => {
     {
       plugin: playlist,
       options: {
-        service: playlistsService,
+        playlistsService: playlistsService,
+        playlistSongsService: playlistSongsService,
         validator: PlaylistValidator,
+      }
+    },
+    {
+      plugin: playlistSongs,
+      options: {
+        service: playlistSongsService,
+        validator: PlaylistSongsValidator,
       }
     }
   ]);
