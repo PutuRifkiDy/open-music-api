@@ -116,14 +116,9 @@ class PlaylistSongsService {
       throw new NotFoundError('Aktivitas pada playlist tidak ditemukan');
     }
 
-    const playlistSongActivityRows = result.rows[0];
+    let activities = [];
 
-    const activities = {
-      playlistId: playlistSongActivityRows.playlist_id,
-      activities: [],
-    };
-
-    activities.activities = result.rows.map((row) => ({
+    activities = result.rows.map((row) => ({
       username: row.username,
       title: row.title,
       action: row.action,
