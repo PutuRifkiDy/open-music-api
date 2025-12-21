@@ -5,8 +5,10 @@ const { mapDBToPlaylistModel } = require('../../utils/mapDBToModel');
 const NotFoundError = require('../../exceptions/NotFoundError');
 
 class PlaylistsService {
-  constructor() {
+  constructor(collaborationsService, playlistSongsService) {
     this._pool = new Pool();
+    this._collaborationsService = collaborationsService;
+    this._playlistSongsService = playlistSongsService;
   }
 
   async addPlaylist({ name, owner }) {
@@ -33,7 +35,8 @@ class PlaylistsService {
         SELECT playlists.id, playlists.name, users.username
         FROM playlists
         LEFT JOIN users ON playlists.owner = users.id
-        WHERE playlists.owner = $1
+        LEFT JOIN collaborations ON collaborations.playlist_id = playlists.id
+        WHERE playlists.owner = $1 OR collaborations.user_id = $1
       `,
       values: [owner],
     };
@@ -51,6 +54,22 @@ class PlaylistsService {
 
     if (!result.rows.length) {
       throw new NotFoundError('Playlist gagal dihapus. Id tidak ditemukan');
+    }
+  }
+
+  async verifyPlaylistAccess(playlistId, userId) {
+    try {
+      await this._playlistSongsService.verifyPlaylistOwner(playlistId, userId);
+    } catch (error) {
+      if (error instanceof NotFoundError) {
+        throw error;
+      }
+
+      try {
+        await this._collaborationsService.verifyCollaborator(playlistId, userId);
+      } catch {
+        throw error;
+      }
     }
   }
 }
