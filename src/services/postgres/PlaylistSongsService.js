@@ -98,6 +98,41 @@ class PlaylistSongsService {
     }
   }
 
+  async getPlaylistSongsActivities(playlistId) {
+    const query = {
+      text: `
+        SELECT playlist_id , users.username, songs.title, action, time
+        FROM playlist_song_activities
+        RIGHT JOIN users ON users.id = user_id
+        RIGHT JOIN songs ON songs.id = song_id
+        WHERE playlist_id = $1;
+      `,
+      values: [playlistId],
+    };
+
+    const result = await this._pool.query(query);
+
+    if (!result.rows.length) {
+      throw new NotFoundError('Aktivitas pada playlist tidak ditemukan');
+    }
+
+    const playlistSongActivityRows = result.rows[0];
+
+    const activities = {
+      playlistId: playlistSongActivityRows.playlist_id,
+      activities: [],
+    };
+
+    activities.activities = result.rows.map((row) => ({
+      username: row.username,
+      title: row.title,
+      action: row.action,
+      time: row.time,
+    }));
+
+    return activities;
+  }
+
   async deleteSongFromPlaylist(playlistId, songId) {
     const query = {
       text: 'DELETE FROM playlist_songs WHERE playlist_id = $1 AND song_id = $2 RETURNING id',
