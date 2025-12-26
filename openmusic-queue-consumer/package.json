@@ -1,25 +1,18 @@
 {
-  "name": "open-music-api",
+  "name": "openmusic-queue-consumer",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node ./src/server.js",
-    "start:dev": "nodemon ./src/server.js",
-    "lint": "eslint ./",
-    "migrate": "node-pg-migrate"
+    "start-consume": "node ./src/consumer.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@hapi/hapi": "^21.4.4",
-    "@hapi/jwt": "^3.2.3",
-    "bcrypt": "^6.0.0",
+    "amqplib": "^0.10.9",
     "dotenv": "^17.2.3",
-    "joi": "^18.0.1",
-    "nanoid": "^3.3.11",
-    "node-pg-migrate": "^8.0.3",
+    "nodemailer": "^7.0.12",
     "pg": "^8.16.3"
   },
   "devDependencies": {
