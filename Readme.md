@@ -1,7 +1,3 @@
-User: Buatkan saya file README.md untuk proyek backend Open Music API menggunakan Hapi.js dan PostgreSQL. Tolong sertakan cara instalasi, cara setting .env, cara menjalankan migrasi database, dan daftar fitur utama.
-
-Workspace: Collecting workspace information# Open Music API
-
 Open Music API adalah backend aplikasi musik yang dibangun menggunakan Hapi.js, PostgreSQL sebagai database utama, Redis untuk caching, dan RabbitMQ untuk message queue. Aplikasi ini terdiri dari dua bagian utama: API server dan queue consumer untuk mengekspor playlist ke email.
 
 ## Fitur Utama
