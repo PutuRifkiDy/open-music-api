@@ -183,7 +183,7 @@ Untuk dokumentasi lengkap, gunakan tools seperti Postman atau Swagger.
 
 Jalankan linting untuk memeriksa kode:
 ```
-npm run lint
+npx eslint . --fix
 ```
 
 ## Lisensi
